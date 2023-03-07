@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function SearchForm() {
+function Search() {
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
@@ -31,4 +31,4 @@ function SearchForm() {
   );
 }
 
-export default SearchForm;
+export default Search;

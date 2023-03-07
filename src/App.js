@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
 import Home from './components/Home';
-import LoginForm from './components/LoginForm';
-import RegistrationForm from './components/RegistrationForm';
-import MyMemes from './components/MyMemes';
-import AllMemes from './components/AllMemes';
-import SearchForm from './components/SearchForm';
-import EditMemeForm from './components/EditMemeForm';
-import DeleteMemeButton from './components/DeleteMemes';
-
+import Login from './components/Login';
+import Search from './components/Search';
+import EditMeme from './components/EditMeme';
+import DeleteMeme from './components/DeleteMeme';
+import Register from './components/Register';
+import Navbar from './components/Navbar';
+import UserMemes from './component/UserMemes'
+import MobileMenu from './component/MobileMenu'
+import AddMeme from './components/AddMeme'
 import './index.css';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -29,13 +29,14 @@ function App() {
         <Navbar loggedIn={loggedIn} username={username} setLoggedIn={setLoggedIn} />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<LoginForm setLoggedIn={setLoggedIn} setUsername={setUsername} />} />
-          <Route path="/register" element={<RegistrationForm />} />
-          <Route path="/my-memes" element={<MyMemes username={username} />} />
-          <Route path="/all-memes" element={<AllMemes username={username} />} />
-          <Route path="/search" element={<SearchForm />} />
-          <Route path="/edit/:id" element={<EditMemeForm username={username} />} />
-          <Route path="/delete/:id" element={<DeleteMemeButton username={username} />} />
+          <Route path="/login" element={<Login Register={Register} setLoggedIn={setLoggedIn} setUsername={setUsername} />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/edit/:id" element={<EditMeme username={username} />} />
+          <Route path="/delete/:id" element={<DeleteMeme username={username} />} />
+          <Route path="/usermemes" element={<UserMemes username={username} />} />
+          <Route path="/mobilemenu" element={<MobileMenu username={username} />} />
+          <Route path="/addmeme" element={<AddMeme username={username} />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
     </Router>

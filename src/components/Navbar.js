@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+
 function Navbar(props) {
   const handleLogout = () => {
     localStorage.removeItem('username');
     props.setLoggedIn(false);
   };
+
   return (
     <nav>
       <ul>
@@ -55,4 +57,5 @@ function Navbar(props) {
     </nav>
   );
 }
+
 export default Navbar;

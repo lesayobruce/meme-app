@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
-const EditMemeForm = () => {
+
+const EditMeme = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const fetchMeme = async () => {
       setLoading(true);
@@ -20,6 +23,7 @@ const EditMemeForm = () => {
     };
     fetchMeme();
   }, [id]);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -28,6 +32,7 @@ const EditMemeForm = () => {
     setLoading(false);
     navigate('/my-memes');
   };
+
   return (
     <div>
       <h2>Edit Meme</h2>
@@ -68,4 +73,5 @@ const EditMemeForm = () => {
     </div>
   );
 };
-export default EditMemeForm;
+
+export default EditMeme;
