@@ -12,23 +12,21 @@ const EditMeme = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchMeme = async () => {
-      setLoading(true);
-      const response = await axios.get(`http://localhost:5000/memes/${id}`);
-      const meme = response.data;
-      setTitle(meme.title);
-      setDescription(meme.description);
-      setImageUrl(meme.imageUrl);
-      setLoading(false);
-    };
-    fetchMeme();
+    fetch(`http://localhost:9292/memes/${id}`)
+      .then(response => response.json())
+      .then(data => {
+        setTitle(data.title);
+        setDescription(data.description);
+        setImageUrl(data.imageUrl);
+      })
+      .catch(error => console.log(error));
   }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     const updatedMeme = { title, description, imageUrl };
-    await axios.put(`http://localhost:5000/memes/${id}`, updatedMeme);
+    await axios.put(`http://localhost:9292/memes/${id}`, updatedMeme);
     setLoading(false);
     navigate('/my-memes');
   };

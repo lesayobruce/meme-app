@@ -1,32 +1,54 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
 
 function Search() {
   const [searchTerm, setSearchTerm] = useState('');
-  const navigate = useNavigate();
+  const [searchResults, setSearchResults] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    navigate(`/search?q=${searchTerm}`);
+  useEffect(() => {
+    if (searchTerm) {
+      setLoading(true);
+      fetch(`http://localhost:9292/search?q=${searchTerm}`)
+        .then(response => response.json())
+        .then(data => {
+          setSearchResults(data);
+          setLoading(false);
+        })
+        .catch(error => console.log(error));
+    } else {
+      setSearchResults([]);
+    }
+  }, [searchTerm]);
+
+  const handleInputChange = (event) => {
+    setSearchTerm(event.target.value);
   };
 
   return (
-    <div className="container">
-      <h1>Search for Memes</h1>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
+    <div>
+      <h2>Search for Memes</h2>
+      <form>
+        <div>
+          <label htmlFor="searchInput">Search:</label>
           <input
             type="text"
-            className="form-control"
-            placeholder="Search..."
+            id="searchInput"
             value={searchTerm}
-            onChange={(event) => setSearchTerm(event.target.value)}
+            onChange={handleInputChange}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
-          Search
-        </button>
       </form>
+      {loading && <p>Loading...</p>}
+      {!loading && searchResults.length > 0 && (
+        <ul>
+          {searchResults.map((result) => (
+            <li key={result.id}>{result.title}</li>
+          ))}
+        </ul>
+      )}
+      {!loading && searchResults.length === 0 && (
+        <p>No results found.</p>
+      )}
     </div>
   );
 }

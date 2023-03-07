@@ -8,7 +8,7 @@ Clone the repository to your local machine.
 Navigate to the root directory of the project.
 Install the required dependencies by running npm install in the command line.
 Start the server by running ruby app.rb in the command line.
-Open a web browser and navigate to http://localhost:4567/ to access the application.
+Open a web browser and navigate to http://localhost:9292/ to access the application.
 Usage
 To use the application, follow these steps:
 
